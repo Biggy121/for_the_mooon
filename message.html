@@ -77,6 +77,27 @@
             padding: 10px;
         }
 
+        .controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #4b0082;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .control-button:hover {
+            background-color: #ff69b4;
+        }
+
         @keyframes slide {
             0% { opacity: 0; transform: translateY(20px); }
             10% { opacity: 1; transform: translateY(0); }
@@ -102,8 +123,13 @@
        <p>🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍</p>
    </div>
     
-    
     <div class="carousel" id="duaa-carousel"></div>
+
+    <div class="controls">
+        <button class="control-button" id="prev-button">السابق</button>
+        <button class="control-button" id="next-button">التالي</button>
+        <button class="control-button" id="play-pause-button">إيقاف</button>
+    </div>
     
     <script>
         function createStar() {
@@ -127,23 +153,58 @@
            "اللهم إني اسألك باسمك الأعظم الذي إذ سُئلت به أجبت إذا دُعيت به أعطيت أن تقضي لي حاجتي إنَّك على كل شيء قدير.",
            "اللهم إني اسألك موجبات رحمتك، وعزائم مغفرتك والغنيمة من كل بر والسلامة من كل إثم، اللهم لا تدع لي ذنبًا إلا غفرته، ولا همًّا إلا فرًّجته ولا حاجة هي لك رضًا إلا قضيتها يا أرحم الراحمين.",
            "اللهم إني اسألك رضًا لا يعقبه سخط، وفرحًا لا يعقبه حزن، اللهم املأ قلبي بكل ما هو خير لي، واقضِ لي حاجتي بقدرتك يا أرحم الراحمين.",
-           "اللهم إنك تعلم كل خفية، فاكشف عني كل بلوى تصيبني وأغثني وكن معي، اللهم ارحمني والطف بي وتداركني يا لطيف.",
-            "أستغفر الله العظيم وأتوب إليه، اللهم اغفر لي ولوالدي وللمؤمنين والمؤمنات.",
-            " اللهم إجمعني في الحلال مع صفاء قلالو عاجلا وليس أجلا ,واجعل الخير كله في ما بيننا و اجعلنا من عبادك الصالحين",
-            "ربي لما أنزلت إلي من خير فقير"
+           "اللهم إنك تعلم كل خفية، فاكشف عني كل بلوى تصيبني وأغثني وكن معي، اللهم ارحمني والطف بي وتداركني يا لطيف"
         ];
-        
-        let index = 0;
-        function updateDuaa() {
-            const carousel = document.getElementById('duaa-carousel');
-            carousel.innerText = duaas[index];
-            carousel.style.animation = 'none';
-            setTimeout(() => carousel.style.animation = 'slide 5s infinite',50);
-            index = (index + 1) % duaas.length;
+
+        let currentIndex = 0;
+        let interval;
+
+        const duaaCarousel = document.getElementById('duaa-carousel');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const playPauseButton = document.getElementById('play-pause-button');
+
+        function updateCarousel() {
+            duaaCarousel.textContent = duaas[currentIndex];
         }
-        
-        updateDuaa();
-        setInterval(updateDuaa, 3000);
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % duaas.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + duaas.length) % duaas.length;
+            updateCarousel();
+        }
+
+        function playCarousel() {
+            interval = setInterval(nextSlide, 3000);
+            playPauseButton.textContent = "إيقاف";
+        }
+
+        function pauseCarousel() {
+            clearInterval(interval);
+            playPauseButton.textContent = "تشغيل";
+        }
+
+        let isPlaying = true;
+        playPauseButton.addEventListener('click', () => {
+            if (isPlaying) {
+                pauseCarousel();
+            } else {
+                playCarousel();
+            }
+            isPlaying = !isPlaying;
+        });
+
+        prevButton.addEventListener('click', prevSlide);
+        nextButton.addEventListener('click', nextSlide);
+
+        // Initialize carousel
+        updateCarousel();
+        playCarousel();
     </script>
 </body>
 </html>
+

@@ -16,9 +16,11 @@
             text-align: center;
         }
         .container {
-            color: #004080;
+            color: #fdfeff;
             font-size: 24px;
             max-width: 600px;
+            position: relative;
+    z-index: 10; 
         }
         .input-box {
             margin-top: 20px;
@@ -62,6 +64,96 @@
             75% { transform: translateX(-10px); }
             100% { transform: translateX(0); }
         }
+
+
+
+            body {
+                background: radial-gradient(circle, #1b2735, #090a0f);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                font-family: 'Poppins', sans-serif;
+                text-align: center;
+                color: white;
+                overflow: hidden;
+            }
+            
+            .moon {
+                width: 100px;
+                height: 100px;
+                background: radial-gradient(circle, #ffffdd, #ffd700);
+                border-radius: 50%;
+                box-shadow: 0 0 20px #ffd700;
+                position: absolute;
+                top: 20%;
+                left: 50%;
+                transform: translateX(-50%);
+                animation: glow 2s infinite alternate;
+            }
+            
+            @keyframes glow {
+                0% { box-shadow: 0 0 20px #ffd700; }
+                100% { box-shadow: 0 0 50px #ffd700; }
+            }
+            
+            .stars {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            
+            .star {
+                position: absolute;
+                width: 5px;
+                height: 5px;
+                background: white;
+                border-radius: 50%;
+                box-shadow: 0 0 10px white;
+                animation: twinkle 3s infinite;
+            }
+            
+            @keyframes twinkle {
+                0% { opacity: 0.2; transform: scale(0.8); }
+                50% { opacity: 1; transform: scale(1); }
+                100% { opacity: 0.2; transform: scale(0.8); }
+            }
+            
+            .music-container {
+                background: rgba(255, 255, 255, 0.2);
+                padding: 20px;
+                border-radius: 15px;
+                box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-top: 30px;
+            }
+            .music-container button {
+                border: none;
+                padding: 12px 24px;
+                border-radius: 50px;
+                font-size: 18px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            .play-btn {
+                background: #ff4d4d;
+                color: white;
+            }
+            .pause-btn {
+                background: #004080;
+                color: white;
+            }
+            .play-btn:hover {
+                background: #e63e3e;
+            }
+            .pause-btn:hover {
+                background: #002f5e;
+            }
     </style>
 </head>
 <body>
@@ -102,6 +194,49 @@
             }
         }
     </script>
+         
+    
+        <div class="stars"></div>
+        <div class="moon"></div>
+        
+        <audio id="background-music" autoplay loop>
+            <source src="Song1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <div class="music-container">
+            <p>🎵 My Promise for you 🎶</p>
+            <button onclick="playMusic()" class="play-btn">▶ Play</button>
+            <button onclick="pauseMusic()" class="pause-btn">⏸ Pause</button>
+        </div>
+        
+        <script>
+            const audio = document.getElementById("background-music");
+            audio.volume = 0.5;
+            
+            function playMusic() {
+                audio.play();
+            }
+            
+            function pauseMusic() {
+                audio.pause();
+            }
+            
+            function createStars() {
+                const starsContainer = document.querySelector('.stars');
+                for (let i = 0; i < 100; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    star.style.top = Math.random() * 100 + 'vh';
+                    star.style.left = Math.random() * 100 + 'vw';
+                    star.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    starsContainer.appendChild(star);
+                }
+            }
+            createStars();
+        </script>
+ 
 </body>
 </html>
+
 

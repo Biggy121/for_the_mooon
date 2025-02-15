@@ -104,10 +104,62 @@
             90% { opacity: 1; transform: translateY(0); }
             100% { opacity: 0; transform: translateY(-20px); }
         }
+
+
+
+
+
+
+
+              .music-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    background: #ff69b4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff1493;
+}
+
+.wow-effect {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-top: 20px;
+    animation: wowAnimation 2s infinite alternate;
+}
+
+@keyframes wowAnimation {
+    from { transform: scale(1); opacity: 0.8; }
+    to { transform: scale(1.2); opacity: 1; }
+}
+
     </style>
 </head>
 <body>
     <div class="moon"></div>
+      <audio id="background-music" autoplay loop>
+        <source src="Song2.mp3" type="audio/mp3">
+        متصفحك لا يدعم تشغيل الصوت
+    </audio>
+    
+    <div class="music-controls">
+        <button onclick="playMusic()">🔊 play song</button>
+        <button onclick="pauseMusic()">⏸ pause song</button>
+    </div>
+    
+    <div class="wow-effect">✨Words for you✨</div>
     <div class="letter-container">
         💌 عزيزتي SAFSAF
        <p>الله يعلم كم أنتِ غالية عندي. أنتِ امرأة بقلب طيب، نور يضيء طريقي، ولا أملك إلا أن أشكر الله أن جمعني بكِ.</p>
@@ -207,6 +259,29 @@
         // Initialize carousel
         updateCarousel();
         playCarousel();
+
+
+
+
+
+
+
+                const music = document.getElementById("background-music");
+
+function playMusic() {
+    music.play();
+}
+
+function pauseMusic() {
+    music.pause();
+}
+
+window.onload = () => {
+    setTimeout(() => {
+        playMusic();
+    }, 1000);
+};
+
     </script>
 </body>
 </html>

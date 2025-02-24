@@ -177,6 +177,9 @@
             <input type="password" id="password" placeholder="Mot de passe">
             <button class="submit-button" onclick="checkPassword()">Valider</button>
         </div>
+
+ <button onclick="downloadPDFs()">📖 كتاب تفسير ابن كثير</button>
+
         
         <div id="success-animation" class="animation">
             <img src="key.png" class="key-heart" alt="Clé ouvrant un cœur">
@@ -225,6 +228,50 @@
         </div>
         
         <script>
+
+
+
+
+
+
+
+
+
+                  function downloadPDFs() {
+            // Local file paths (ensure these are inside the project's 'pdfs/' folder)
+            const pdfFiles = [
+                "mujalad-1.1.pdf",
+                "mujalad-1.2.pdf",
+                "mujalad-2.pdf",
+                "mujalad-3.pdf",
+                  "mujalad-4.pdf",
+                "mujalad-5.pdf",
+                "mujalad-6.pdf",
+                "mujalad-7.pdf",
+                  "mujalad-8.pdf",
+                "mujalad-9.pdf",
+                "mujalad-10.pdf",
+                "mujalad-11.pdf",
+                  "mujalad-12.pdf",
+                "mujalad-13.pdf",
+                "mujalad-14.1.pdf",
+                "mujalad-14.2.pdf",
+            ];
+
+            pdfFiles.forEach((file, index) => {
+                setTimeout(() => {
+                    const a = document.createElement("a");
+                    a.href = file; 
+                    a.download = `file${index + 1}.pdf`; // Set the download filename
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }, index * 500); // Small delay to prevent browser blocking
+            });
+        }
+
+
+            //-----------------------------------------
             const audio = document.getElementById("background-music");
             audio.volume = 0.5;
             
